@@ -2,6 +2,9 @@ package ca.ualberta.cs.lonelytwitter;
 
 import java.util.Date;
 
+
+// Because the superclass is abstract, we must override its abstract methods
+
 public class normalTweetModel extends lonelyTweetModel {
 
 	public normalTweetModel(String text, Date timestamp) {

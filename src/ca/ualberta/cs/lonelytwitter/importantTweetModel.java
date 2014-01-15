@@ -14,9 +14,22 @@ public class importantTweetModel extends lonelyTweetModel {
 		super(text, timestamp);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public importantTweetModel(String text) {
+		super(text);
 		this.text = text; // THIS OVERRIDES THE SUPERCLASS'S VERSION OF THE METHOD
+	}
+	
+	@Override
+	public void setTimestamp(Date timestamp) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	@Override
+	public void setText(String text) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
