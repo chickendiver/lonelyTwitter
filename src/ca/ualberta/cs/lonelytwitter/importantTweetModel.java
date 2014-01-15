@@ -31,11 +31,10 @@ public class importantTweetModel extends lonelyTweetModel {
 	}
 	
 	@Override
-	public void setImportance(int importance){
-		if (importance > 0)
-			importance = 1;
-		else 
-			importance = 0;
+	public void setImportance(boolean importance) throws Exception {
+		if (!importance){
+			throw new IllegalArgumentException(); // Pretty obvious. If you can't find the proper exception, then Google the Java doc.
+		}
 		this.importance = importance;
 	}
 	

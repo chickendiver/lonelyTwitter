@@ -13,14 +13,14 @@ public abstract class lonelyTweetModel {
 	// Public = can view it from anywhere
 	
 	protected Date timestamp;
-	protected int importance;
+	protected boolean importance;
 	
 	// Constructor
 	public lonelyTweetModel(String text, Date timestamp) {
 		super(); // Class's parent's constructor is called (inheritance)
 		this.text = text;
 		this.timestamp = timestamp;
-		this.importance = 0;
+		this.importance = false;
 	}
 	
 	// Constructor II (Overloading -- Will be called if the parameters are appropriate)
@@ -29,7 +29,7 @@ public abstract class lonelyTweetModel {
 		this.text = text;
 		this.timestamp = new Date(); // Gives the timestamp the timestamp of right now. 
 							// "new" creates a new object of the java.util.Date class
-		this.importance = 0;
+		this.importance = false;
 	}
 		
 	// Encapsulation: force other classes to go through methods in order to change attributes of a class (using private variables)
@@ -46,10 +46,10 @@ public abstract class lonelyTweetModel {
 
 	public abstract void setTimestamp(Date timestamp);
 	
-	public int getImportance(){
+	public boolean getImportance(){
 		return importance;
 	}
 	
-	public abstract void setImportance(int importance);
+	public abstract void setImportance(boolean importance) throws Exception;
 	
 }
