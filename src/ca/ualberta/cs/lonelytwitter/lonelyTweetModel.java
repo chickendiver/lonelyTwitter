@@ -21,7 +21,7 @@ public class lonelyTweetModel {
 		this.timestamp = timestamp;
 	}
 	
-	// Constructor II (Overloading)
+	// Constructor II (Overloading -- Will be called if the parameters are appropriate)
 	public lonelyTweetModel(String text) {
 		super(); // Class's parent's constructor is called (inheritance)
 		this.text = text;
