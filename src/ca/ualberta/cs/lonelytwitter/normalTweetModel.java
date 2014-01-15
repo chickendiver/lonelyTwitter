@@ -30,5 +30,14 @@ public class normalTweetModel extends lonelyTweetModel {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void setImportance(int importance){
+		if (importance > 0)
+			importance = 1;
+		else 
+			importance = 0;
+		this.importance = importance;
+	}
 
 }

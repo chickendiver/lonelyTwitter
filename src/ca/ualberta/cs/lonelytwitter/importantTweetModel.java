@@ -7,8 +7,6 @@ import java.util.Date;
 // Because this inherits and uses the constructors of the superclass, this class is polymorphic (it doesn't matter which class you use)
 
 public class importantTweetModel extends lonelyTweetModel {
-	
-	private String text;
 
 	public importantTweetModel(String text, Date timestamp) {
 		super(text, timestamp);
@@ -31,5 +29,16 @@ public class importantTweetModel extends lonelyTweetModel {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	@Override
+	public void setImportance(int importance){
+		if (importance > 0)
+			importance = 1;
+		else 
+			importance = 0;
+		this.importance = importance;
+	}
+	
 }
+
+
