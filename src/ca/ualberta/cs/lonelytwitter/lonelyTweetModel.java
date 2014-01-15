@@ -2,17 +2,17 @@ package ca.ualberta.cs.lonelytwitter;
 
 import java.util.Date;
 
-public class lonelyTweetModel {
-	private String text; 
+public abstract class lonelyTweetModel {
+	protected String text; 
 	
-	// private = access modifier (four of them in Java: private, protected, public, default (not text))
+	// In here, private = access modifier (four of them in Java: private, protected, public, default (not text))
 	// Controls where you can access it from. 
 	// Private = only within current class
 	// Default = current class and anything else within the same package
 	// Protected = current class and all its sub-classes within the package
 	// Public = can view it from anywhere
 	
-	private Date timestamp;
+	protected Date timestamp;
 	
 	// Constructor
 	public lonelyTweetModel(String text, Date timestamp) {
@@ -35,16 +35,12 @@ public class lonelyTweetModel {
 		return text;
 	}
 
-	public void setText(String text) {
-		this.text = text;
-	}
+	public abstract void setText(String text);
 
 	public Date getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
+	public abstract void setTimestamp(Date timestamp);
 	
 }
