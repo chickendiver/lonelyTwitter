@@ -12,10 +12,25 @@ public class lonelyTweetModel {
 	// Protected = current class and all its sub-classes within the package
 	// Public = can view it from anywhere
 	
+	private Date timestamp;
+	
+	// Constructor
+	public lonelyTweetModel(String text, Date timestamp) {
+		super(); // Class's parent's constructor is called (inheritance)
+		this.text = text;
+		this.timestamp = timestamp;
+	}
+	
+	// Constructor II (Overloading)
+	public lonelyTweetModel(String text) {
+		super(); // Class's parent's constructor is called (inheritance)
+		this.text = text;
+		this.timestamp = new Date(); // Gives the timestamp the timestamp of right now. 
+							// "new" creates a new object of the java.util.Date class
+	}
+		
 	// Encapsulation: force other classes to go through methods in order to change attributes of a class (using private variables)
 	
-	private Date timestamp;
-
 	public String getText() {
 		return text;
 	}
