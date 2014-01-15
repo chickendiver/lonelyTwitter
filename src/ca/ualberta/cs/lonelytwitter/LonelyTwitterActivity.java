@@ -20,7 +20,7 @@ import android.widget.ListView;
 
 public class LonelyTwitterActivity extends Activity {
 
-	private static final String FILENAME = "file.sav";
+	private static final String FILENAME = "file.sav"; // The final keyword makes the attribute a constant. Can use underscores, not camlCase
 	private EditText bodyText;
 	private ListView oldTweetsList;
 	
