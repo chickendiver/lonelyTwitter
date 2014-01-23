@@ -79,6 +79,7 @@ public class LonelyTwitterActivity extends Activity {
 			while (line != null) {
 				tweets.add(line);
 				line = in.readLine();
+				//gson.fromJson(fis, normalTweetModel.class);
 			}
 
 		} catch (FileNotFoundException e) {
@@ -98,7 +99,8 @@ public class LonelyTwitterActivity extends Activity {
 			normalTweetModel tweet = new normalTweetModel(text);
 			String jsonTweet = gson.toJson(tweet);
 			
-			fos.write(jsonTweet);
+			fos.write(new String(jsonTweet)
+			.getBytes());
 			
 			fos.close();
 			tweets.add(new String(date.toString() + " | " + text + "\n"));
