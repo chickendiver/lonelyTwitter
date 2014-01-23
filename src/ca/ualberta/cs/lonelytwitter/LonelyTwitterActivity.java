@@ -34,6 +34,8 @@ public class LonelyTwitterActivity extends Activity {
 	
 	protected List<normalTweetModel> tweetList = new ArrayList<normalTweetModel>();
 	
+	protected Gson gson = new Gson();
+	
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -93,11 +95,10 @@ public class LonelyTwitterActivity extends Activity {
 		try {
 			FileOutputStream fos = openFileOutput(FILENAME,
 					Context.MODE_APPEND);
-			fos.write(new String(date.toString() + " | " + text + "\n")
-					.getBytes());
 			normalTweetModel tweet = new normalTweetModel(text);
-			Gson.toJson(tweet, normalTweetModel, fos);
+			String jsonTweet = gson.toJson(tweet);
 			
+			fos.write(jsonTweet);
 			
 			fos.close();
 			tweets.add(new String(date.toString() + " | " + text + "\n"));
