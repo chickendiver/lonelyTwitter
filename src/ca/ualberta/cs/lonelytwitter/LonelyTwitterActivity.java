@@ -19,6 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+
 public class LonelyTwitterActivity extends Activity {
 
 	private static final String FILENAME = "file3.sav"; // The final keyword makes the attribute a constant. Can use underscores, not camlCase
@@ -27,6 +31,8 @@ public class LonelyTwitterActivity extends Activity {
 	
 	protected List<String> tweets = new ArrayList<String>();
 	protected ArrayAdapter<String> adapter;
+	
+	protected List<normalTweetModel> tweetList = new ArrayList<normalTweetModel>();
 	
 	
 	/** Called when the activity is first created. */
@@ -89,8 +95,18 @@ public class LonelyTwitterActivity extends Activity {
 					Context.MODE_APPEND);
 			fos.write(new String(date.toString() + " | " + text + "\n")
 					.getBytes());
+			normalTweetModel tweet = new normalTweetModel(text);
+			Gson.toJson(tweet, normalTweetModel, fos);
+			
+			
 			fos.close();
 			tweets.add(new String(date.toString() + " | " + text + "\n"));
+			
+			
+			
+			
+			
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
