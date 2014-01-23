@@ -1,0 +1,244 @@
+diff --git a/src/ca/ualberta/cs/lonelytwitter/ConcreteTweetView.java b/src/ca/ualberta/cs/lonelytwitter/ConcreteTweetView.java
+new file mode 100644
+index 0000000..dbc02b1
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/ConcreteTweetView.java
+@@ -0,0 +1,27 @@
++package ca.ualberta.cs.lonelytwitter;
++
++// This is class which uses the tweetView interface as a parent.
++// You can implement more than one interface per class, so this is what separates interfaces from classes.
++
++public class ConcreteTweetView implements tweetView {
++
++	public String formatTweet(lonelyTweetModel lt) {
++		return lt.getTimestamp().toString() + " | " + lt.getText();
++								// ^ Turns the timestamp into a string
++										//   ^ Concatenates the strings
++		// The "period" is called the "dispatch operator"
++		// "toString()" is a method of the "Java.util.date" class
++	}
++
++}
++
++
++// CLASSNAMES IN JAVA START WITH AN UPPERCASE LETTER
++
++// METHODS, ATTRIBUTES, OBJECTS, ETC., ALL START WITH LOWERCASE
++
++// CAMEL CASE IS USED
++
++// Java styleguide (Google/Oracle) has this information
++
++// Want to change the name of a class? Click "Refactor" then "rename" by right-clicking the name.
+\ No newline at end of file
+diff --git a/src/ca/ualberta/cs/lonelytwitter/LonelyTwitterActivity.java b/src/ca/ualberta/cs/lonelytwitter/LonelyTwitterActivity.java
+index cd5feb6..8a8c5b8 100644
+--- a/src/ca/ualberta/cs/lonelytwitter/LonelyTwitterActivity.java
++++ b/src/ca/ualberta/cs/lonelytwitter/LonelyTwitterActivity.java
+@@ -20,7 +20,7 @@ import android.widget.ListView;
+ 
+ public class LonelyTwitterActivity extends Activity {
+ 
+-	private static final String FILENAME = "file.sav";
++	private static final String FILENAME = "file.sav"; // The final keyword makes the attribute a constant. Can use underscores, not camlCase
+ 	private EditText bodyText;
+ 	private ListView oldTweetsList;
+ 	
+diff --git a/src/ca/ualberta/cs/lonelytwitter/TweetListModel.java b/src/ca/ualberta/cs/lonelytwitter/TweetListModel.java
+new file mode 100644
+index 0000000..61d9749
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/TweetListModel.java
+@@ -0,0 +1,16 @@
++package ca.ualberta.cs.lonelytwitter;
++
++import java.util.ArrayList;
++
++public class TweetListModel {
++	private ArrayList<lonelyTweetModel> list; //Must specify the type of what's in the ArrayList within the <> after you specify ArrayList (shown)
++
++	public ArrayList<lonelyTweetModel> getList() { // If you want your ArrayList to store anything, specify "Object" as the type. Everything is a subclass of Object
++		return list;
++	}
++
++	public void setList(ArrayList<lonelyTweetModel> list) {
++		this.list = list;
++	}
++	
++}
+diff --git a/src/ca/ualberta/cs/lonelytwitter/importantTweetModel.java b/src/ca/ualberta/cs/lonelytwitter/importantTweetModel.java
+new file mode 100644
+index 0000000..704bd75
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/importantTweetModel.java
+@@ -0,0 +1,43 @@
++package ca.ualberta.cs.lonelytwitter;
++
++import java.util.Date;
++
++// This class extends (is inherited from) lonelyTweetModel (it HAS the date and time from lonelyTweetModel)
++// Abstract classes must have these sub-classes
++// Because this inherits and uses the constructors of the superclass, this class is polymorphic (it doesn't matter which class you use)
++
++public class importantTweetModel extends lonelyTweetModel {
++
++	public importantTweetModel(String text, Date timestamp) {
++		super(text, timestamp);
++		// TODO Auto-generated constructor stub
++	}
++	
++	public importantTweetModel(String text) {
++		super(text);
++		this.text = text; // THIS OVERRIDES THE SUPERCLASS'S VERSION OF THE METHOD
++	}
++	
++	@Override
++	public void setTimestamp(Date timestamp) {
++		// TODO Auto-generated method stub
++
++	}
++	
++	@Override
++	public void setText(String text) {
++		// TODO Auto-generated method stub
++
++	}
++	
++	@Override
++	public void setImportance(boolean importance) throws Exception {
++		if (!importance){
++			throw new IllegalArgumentException(); // Pretty obvious. If you can't find the proper exception, then Google the Java doc.
++		}
++		this.importance = importance;
++	}
++	
++}
++
++
+diff --git a/src/ca/ualberta/cs/lonelytwitter/lonelyTweetModel.java b/src/ca/ualberta/cs/lonelytwitter/lonelyTweetModel.java
+new file mode 100644
+index 0000000..81ac6d4
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/lonelyTweetModel.java
+@@ -0,0 +1,55 @@
++package ca.ualberta.cs.lonelytwitter;
++
++import java.util.Date;
++
++public abstract class lonelyTweetModel {
++	protected String text; 
++	
++	// In here, private = access modifier (four of them in Java: private, protected, public, default (not text))
++	// Controls where you can access it from. 
++	// Private = only within current class
++	// Default = current class and anything else within the same package
++	// Protected = current class and all its sub-classes within the package
++	// Public = can view it from anywhere
++	
++	protected Date timestamp;
++	protected boolean importance;
++	
++	// Constructor
++	public lonelyTweetModel(String text, Date timestamp) {
++		super(); // Class's parent's constructor is called (inheritance)
++		this.text = text;
++		this.timestamp = timestamp;
++		this.importance = false;
++	}
++	
++	// Constructor II (Overloading -- Will be called if the parameters are appropriate)
++	public lonelyTweetModel(String text) {
++		super(); // Class's parent's constructor is called (inheritance)
++		this.text = text;
++		this.timestamp = new Date(); // Gives the timestamp the timestamp of right now. 
++							// "new" creates a new object of the java.util.Date class
++		this.importance = false;
++	}
++		
++	// Encapsulation: force other classes to go through methods in order to change attributes of a class (using private variables)
++	
++	public String getText() {
++		return text;
++	}
++
++	public abstract void setText(String text);
++
++	public Date getTimestamp() {
++		return timestamp;
++	}
++
++	public abstract void setTimestamp(Date timestamp);
++	
++	public boolean getImportance(){
++		return importance;
++	}
++	
++	public abstract void setImportance(boolean importance) throws Exception;
++	
++}
+diff --git a/src/ca/ualberta/cs/lonelytwitter/normalTweetModel.java b/src/ca/ualberta/cs/lonelytwitter/normalTweetModel.java
+new file mode 100644
+index 0000000..13c1f96
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/normalTweetModel.java
+@@ -0,0 +1,42 @@
++package ca.ualberta.cs.lonelytwitter;
++
++import java.util.Date;
++
++
++// Because the superclass is abstract, we must override its abstract methods
++
++public class normalTweetModel extends lonelyTweetModel {
++
++	public normalTweetModel(String text, Date timestamp) {
++		super(text, timestamp);
++		// TODO Auto-generated constructor stub
++	}
++
++	public normalTweetModel(String text) {
++		super(text);
++		// TODO Auto-generated constructor stub
++	}
++
++	@Override // FORCES THE COMPILER TO CHECK IF THE FOLLOWING IS NOT OVERRIDING SOMETHING
++				// Eclipse will give you an error if you're not overriding an abstract class's abstract methods.
++	
++	public void setText(String text) {
++		// TODO Auto-generated method stub
++
++	}
++
++	@Override
++	public void setTimestamp(Date timestamp) {
++		// TODO Auto-generated method stub
++
++	}
++	
++	@Override
++	public void setImportance(boolean importance) throws Exception {
++		if (importance){
++			throw new IllegalArgumentException(); // Pretty obvious. If you can't find the proper exception, then Google the Java doc.
++		}
++		this.importance = importance;
++	}
++
++}
+diff --git a/src/ca/ualberta/cs/lonelytwitter/tweetView.java b/src/ca/ualberta/cs/lonelytwitter/tweetView.java
+new file mode 100644
+index 0000000..f0e8a9e
+--- /dev/null
++++ b/src/ca/ualberta/cs/lonelytwitter/tweetView.java
+@@ -0,0 +1,11 @@
++package ca.ualberta.cs.lonelytwitter;
++
++// Interfaces are like abstract classes, except they don't have methods.
++// Views are the way we prepare data to show to the user.
++
++public interface tweetView {
++	
++	String formatTweet(lonelyTweetModel lt); // You can call this in any of normalTweetModel, importantTweetModel, etc.
++	
++	
++}

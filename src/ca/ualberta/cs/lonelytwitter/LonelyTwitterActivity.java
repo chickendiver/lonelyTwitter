@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,9 +21,13 @@ import android.widget.ListView;
 
 public class LonelyTwitterActivity extends Activity {
 
-	private static final String FILENAME = "file.sav"; // The final keyword makes the attribute a constant. Can use underscores, not camlCase
+	private static final String FILENAME = "file3.sav"; // The final keyword makes the attribute a constant. Can use underscores, not camlCase
 	private EditText bodyText;
 	private ListView oldTweetsList;
+	
+	protected List<String> tweets = new ArrayList<String>();
+	protected ArrayAdapter<String> adapter;
+	
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -40,8 +45,8 @@ public class LonelyTwitterActivity extends Activity {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
 				saveInFile(text, new Date(System.currentTimeMillis()));
-				finish();
-
+				//tweets = loadFromFile();
+				adapter.notifyDataSetChanged();
 			}
 		});
 	}
@@ -50,13 +55,14 @@ public class LonelyTwitterActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		String[] tweets = loadFromFile();
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		this.tweets = loadFromFile();
+		this.adapter = new ArrayAdapter<String>(this,
 				R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(adapter);
+		
 	}
 
-	private String[] loadFromFile() {
+	private ArrayList<String> loadFromFile() {
 		ArrayList<String> tweets = new ArrayList<String>();
 		try {
 			FileInputStream fis = openFileInput(FILENAME);
@@ -74,16 +80,17 @@ public class LonelyTwitterActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return tweets.toArray(new String[tweets.size()]);
+		return tweets;//.toArray(new String[tweets.size()]);
 	}
 	
 	private void saveInFile(String text, Date date) {
 		try {
 			FileOutputStream fos = openFileOutput(FILENAME,
 					Context.MODE_APPEND);
-			fos.write(new String(date.toString() + " | " + text)
+			fos.write(new String(date.toString() + " | " + text + "\n")
 					.getBytes());
 			fos.close();
+			tweets.add(new String(date.toString() + " | " + text + "\n"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
