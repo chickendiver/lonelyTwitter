@@ -57,9 +57,13 @@ public class TweetSetModelTest extends ActivityInstrumentationTestCase2<LonelyTw
 		TweetSetModel tweets = new TweetSetModel();
 		
 		tweets.addTweet(new NormalTweetModel("test", date));
-		tweets.addTweet(new NormalTweetModel("test", date)); // SHOULD THROW AN ILLEGAL ARGUMENT EXCEPTION
+		try {
+			tweets.addTweet(new NormalTweetModel("test", date)); // SHOULD THROW AN ILLEGAL ARGUMENT EXCEPTION
+			fail("failure");
+		}
+		catch(IllegalArgumentException ee){
+		}
 		
-		assertTrue("count of tweets should be one", tweets.countTweets() == 1);
 		
 		
 	}
