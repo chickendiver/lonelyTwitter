@@ -1,6 +1,7 @@
 package ca.ualberta.cs.lonelytwitter.test;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import ca.ualberta.cs.lonelytwitter.LonelyTweetModel;
 import ca.ualberta.cs.lonelytwitter.LonelyTwitterActivity;
@@ -10,11 +11,11 @@ import android.test.ActivityInstrumentationTestCase2;
 
 public class TweetSetModelTest extends ActivityInstrumentationTestCase2<LonelyTwitterActivity> {
 
-	public TweetSetModelTest(String name) {
+	public TweetSetModelTest() {
 		super(LonelyTwitterActivity.class);
 	}
 	
-	public void testCount()
+	/*public void testCount()
 	{
 		TweetSetModel tweets = new TweetSetModel();
 		
@@ -22,25 +23,31 @@ public class TweetSetModelTest extends ActivityInstrumentationTestCase2<LonelyTw
 		
 		tweets.addTweet(new NormalTweetModel("test"));
 		assertEquals("after adding a tweet, count should be 1", 1, tweets.countTweets());
-	}
+	}*/
 	
 	public void testGetTweets()
 	{
+		
+		Date date = new Date();
 		TweetSetModel tweets = new TweetSetModel();
 		
-		tweets.addTweet(new NormalTweetModel("test"));
-		tweets.addTweet(new NormalTweetModel("test2"));
-		tweets.addTweet(new NormalTweetModel("test3"));
+		tweets.addTweet(new NormalTweetModel("test", date));
+		tweets.addTweet(new NormalTweetModel("test2", date));
+		tweets.addTweet(new NormalTweetModel("test3", date));
 		
 		ArrayList<LonelyTweetModel> testTweetList = new ArrayList<LonelyTweetModel>();
 		
-		testTweetList.add(new NormalTweetModel("test"));
-		testTweetList.add(new NormalTweetModel("test2"));
-		testTweetList.add(new NormalTweetModel("test3"));
+		assertTrue("test", 1==1);
+		testTweetList.add(new NormalTweetModel("test", date));
+		testTweetList.add(new NormalTweetModel("test2", date));
+		testTweetList.add(new NormalTweetModel("test3", date));
 		
+		ArrayList<LonelyTweetModel> tweetReturnList = tweets.getTweets();
 		
-		
-		assertTrue("These two arrays should be equal", testTweetList(pos), );
+		for (int i = 0; i < 3; i++)
+		{
+			assertTrue("These two arrays should be equal", testTweetList.get(i).equals(tweetReturnList.get(i)));
+		}
 	}
 
 }

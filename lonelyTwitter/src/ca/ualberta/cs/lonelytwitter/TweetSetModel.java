@@ -11,6 +11,7 @@ public class TweetSetModel {
 		return count;
 	}
 	public void addTweet(NormalTweetModel tweet){
+		tweetList.add(tweet);
 		count++;
 	}
 	
