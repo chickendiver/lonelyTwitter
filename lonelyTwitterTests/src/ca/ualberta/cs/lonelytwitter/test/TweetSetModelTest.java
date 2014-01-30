@@ -36,18 +36,31 @@ public class TweetSetModelTest extends ActivityInstrumentationTestCase2<LonelyTw
 		tweets.addTweet(new NormalTweetModel("test3", date));
 		
 		ArrayList<LonelyTweetModel> testTweetList = new ArrayList<LonelyTweetModel>();
-		
-		assertTrue("test", 1==1);
+	
 		testTweetList.add(new NormalTweetModel("test", date));
 		testTweetList.add(new NormalTweetModel("test2", date));
 		testTweetList.add(new NormalTweetModel("test3", date));
 		
 		ArrayList<LonelyTweetModel> tweetReturnList = tweets.getTweets();
 		
-		for (int i = 0; i < 3; i++)
+		assertEquals(tweetReturnList.size(),testTweetList.size());
+		
+		for (int i = 0; i < tweetReturnList.size(); i++)
 		{
 			assertTrue("These two arrays should be equal", testTweetList.get(i).equals(tweetReturnList.get(i)));
 		}
 	}
 
+	public void testAddTweets()
+	{
+		Date date = new Date();
+		TweetSetModel tweets = new TweetSetModel();
+		
+		tweets.addTweet(new NormalTweetModel("test", date));
+		tweets.addTweet(new NormalTweetModel("test", date)); // SHOULD THROW AN ILLEGAL ARGUMENT EXCEPTION
+		
+		assertTrue("count of tweets should be one", tweets.countTweets() == 1);
+		
+		
+	}
 }

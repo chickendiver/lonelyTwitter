@@ -11,8 +11,22 @@ public class TweetSetModel {
 		return count;
 	}
 	public void addTweet(NormalTweetModel tweet){
-		for (int i = 0; i < tweetList.size(); i++){
-			if (tweet.equals(tweetList.get(i))){
+		
+		int exception = 0;
+		if (tweetList.size() == 0){
+			tweetList.add(tweet);
+			count++;
+		}
+		else{
+			
+			for (int i = 0; i < tweetList.size(); i++){
+				if (tweet.equals(tweetList.get(i))){
+					exception = 1;
+				}
+			}
+			
+			if (exception == 1){
+				exception = 0;
 				throw new IllegalArgumentException();
 			}
 			else{
