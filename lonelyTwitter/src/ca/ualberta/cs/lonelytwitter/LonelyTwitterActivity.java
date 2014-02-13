@@ -44,6 +44,17 @@ public class LonelyTwitterActivity extends Activity {
 				NormalTweetModel tweet = new NormalTweetModel(text);
 				saveInFile(tweet);
 				tweets.add(tweet);
+				clearField();
+				adapter.notifyDataSetChanged();
+			}
+		});
+		
+		Button clearButton = (Button) findViewById(R.id.clear);
+		clearButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				setResult(RESULT_OK);
+				clearField();
 				adapter.notifyDataSetChanged();
 			}
 		});
@@ -57,6 +68,14 @@ public class LonelyTwitterActivity extends Activity {
 		adapter = new ArrayAdapter<NormalTweetModel>(this,
 				R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(adapter);
+	}
+	
+	public ListView getList(){
+		return oldTweetsList;
+	}
+	
+	private void clearField(){
+		bodyText.setText("");
 	}
 
 	private ArrayList<NormalTweetModel> loadFromFile() {

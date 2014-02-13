@@ -14,7 +14,7 @@ public class IntentReaderActivity extends Activity {
 	public static final int REVERSE = 2;
 	public static final int DOUBLE = 3;
 	
-	private String text;
+	private String text = null;
 	private int mode;
 	
 	public String getText() {
@@ -25,6 +25,19 @@ public class IntentReaderActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intent_reader);
+		
+		Intent intent = getIntent();
+		mode = intent.getIntExtra(TRANSFORM_KEY, NORMAL);
+		text = transformText(intent.getStringExtra(TEXT_KEY));
+		
+		String defaultText = "No string given";
+		
+		if (text != null){
+			((TextView) findViewById(R.id.intentText)).setText(text);
+		}
+		else{
+			((TextView) findViewById(R.id.intentText)).setText(defaultText);
+		}
 	}
 	
 	public String transformText(String text) {
